@@ -1,0 +1,26 @@
+.calendarDiv{
+    padding: 12px;
+    color: black;
+}
+
+.calendarDiv>header{
+    width: 200px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.calendarDiv>header>div{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calendarDiv>header>div>button{
+    background: none;
+    border: none;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}
+

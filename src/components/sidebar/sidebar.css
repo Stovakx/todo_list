@@ -1,0 +1,12 @@
+aside{
+    width: 250px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+aside>div{
+    display: flex;
+    justify-content: center;
+    
+}

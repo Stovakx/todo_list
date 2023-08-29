@@ -1,0 +1,28 @@
+.dayDiv{
+    border: gray 1px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.dayDiv>header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dayDiv>header>p {
+    text-align: center;
+    padding: 8px;
+    margin: 3px 0 8px 0;
+}
+.dayDiv>header>.dayName{
+    margin: 5px 0 0 0;
+    padding: 0;
+}
+.currentDay{
+    align-self: center;
+    width: 16px;
+    background: blue;
+    border-radius: 50%;
+    color: white;
+}

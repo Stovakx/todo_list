@@ -1,0 +1,57 @@
+.calendarHeader{
+    height: 80px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.calendarHeader>img{
+    margin-left: 20px;
+    height: 40px;
+    width: 40px;
+    
+}
+
+.calendarHeader>h1{
+    font-size: x-large;
+    margin-left: 10px;
+    color: gray;
+    font-weight: bold;
+    align-self: center;
+}
+
+button{
+    cursor: pointer;
+}
+.sideBarBtn{
+    font-size: 25px;
+    border: none;
+    display: flex;
+    margin-left: 10px;
+    padding: 0;
+    align-items: center;
+    background: none;
+}
+.todayBtn{
+    margin: 0 20px 0 20px;
+    height: 30px;
+    width: 70px;
+    outline: auto;
+    background: none;
+    border-radius: 5px;
+}
+
+.prevNextBrnGroup{
+    width: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.prevNextBrnGroup>button{
+    background: none;
+    border: none;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+}
