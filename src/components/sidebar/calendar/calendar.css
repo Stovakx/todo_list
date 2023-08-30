@@ -3,19 +3,23 @@
     color: black;
 }
 
+.calendarDiv{
+    width: 240px;
+    padding: 4px;
+    margin: 5px;
+}
 .calendarDiv>header{
-    width: 200px;
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
 
+}
 .calendarDiv>header>div{
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
-
 .calendarDiv>header>div>button{
     background: none;
     border: none;
@@ -23,4 +27,39 @@
     display: flex;
     align-items: center;
 }
-
+.miniCalendar{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(6, 1fr); 
+}
+.miniCalendar>span{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.miniCalendar>button{
+    border: none;
+    background: none;
+    height: 25px;
+    padding: 0;
+    margin: 4px;
+}
+.miniCalendar>button:hover{
+    background-color: gray;
+    border-radius: 50%;
+}
+.miniCalendar>.selectedDay{
+    background-color:rgb(56 189 248) ;
+    color: white;
+    border-radius: 50%;
+    font-weight: bold;
+}
+.miniCalendar>button>span{
+    font-size: 16px
+}
+.miniCalendar>.miniCurrentDay{
+    background-color: blue;
+    color: white;
+    font-weight: bold;
+    border-radius: 50%;
+}

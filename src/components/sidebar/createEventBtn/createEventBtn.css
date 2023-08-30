@@ -1,3 +1,8 @@
+.sidebarBtn{
+    display: flex;
+    justify-content: start;
+}
+
 .createEventBtn{
     background: none;
     border: none;
@@ -22,4 +27,26 @@
     font-size: 15px;
 }
 
+.dropdownContent{
+    background-color: white;
+    width: 180px;
+    position: absolute;
+    left: 1rem;
+    top: 7.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 10px;
+    border-radius: 20%;
+    box-shadow: 0px 4px 4px 0px rgba(60,64,67,0.3),
+        0px 8px 12px 6px rgba(60,64,67,0.15);;
+}
 
+.dropdownContent>button{
+    width: 100px;
+    background: none;
+    border: none;
+    margin:10px;
+    text-align: start;
+    font-weight: 600;
+}

@@ -1,5 +1,5 @@
 import React from 'react';
-import Day from '../day/Day';
+import Day from '../currentDay/currentDay';
 
 import './month.css';
 
