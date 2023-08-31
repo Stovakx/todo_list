@@ -5,24 +5,20 @@ import  Sidebar  from './components/sidebar/Sidebar';
 import  Month  from './components/month/Month';
 import GlobalContext from './context/globalContext';
 import './index.css'
+import EventModal from './components/eventModal/eventModal';
 
 function App() {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex, isEventModalOpen, closeEventModal } = useContext(GlobalContext);
+  const { monthIndex, showEventModal } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
-  const handleWrapperClick = () => {
-    if (isEventModalOpen) {
-      closeEventModal();
-    }
-  };
-
   return (
     <React.Fragment>
-      <div className='wrapper' onClick={handleWrapperClick}>
+      <div className='wrapper' >
+        {showEventModal && <EventModal/>}
         <CalendarHeader />
         <div className='calendar_wrapper'>
           <Sidebar />

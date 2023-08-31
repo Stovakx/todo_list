@@ -1,6 +1,18 @@
+.modalWrapper{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    background: none;
+    z-index: 40;
+}
 .modal{
     position: absolute;
-    width: 25%;
+    left: 50%;
+    top: 50%;
+    transform:translate(-50%, -50%) ;
+    width: 300px;
     height: 35%;
     background-color: white;
     border-radius: 15%;
@@ -83,4 +95,11 @@
 input:focus{
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.selectedDate{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-left: 15px;
 }

@@ -48,18 +48,25 @@
     background-color: gray;
     border-radius: 50%;
 }
-.miniCalendar>.selectedDay{
-    background-color:rgb(56 189 248) ;
-    color: white;
-    border-radius: 50%;
-    font-weight: bold;
-}
+
 .miniCalendar>button>span{
     font-size: 16px
 }
-.miniCalendar>.miniCurrentDay{
+
+.miniCalendar>.currentDay{
+    width: 25px;
+    font-size: 16px;
     background-color: blue;
     color: white;
-    font-weight: bold;
     border-radius: 50%;
+    align-self: center;
+}
+
+.miniCalendar>.selectedDay{
+    background-color:rgb(56 189 248) ;
+    color: white;
+    width: 25px;
+    font-size: 16px;
+    border-radius: 50%;
+    align-self: center;
 }

@@ -1,42 +1,43 @@
-import React, { useState, useEffect, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import { AiOutlineClose } from 'react-icons/ai';
-import {BiTime} from 'react-icons/bi';
+import { BiTime } from 'react-icons/bi';
 import EventForm from './event';
 import AssignmentForm from './assignment';
-
 import './eventModal.css';
+import dayjs from 'dayjs';
 import GlobalContext from '../../context/globalContext';
 
-export default function EventModal({ selectedAction, closeModal }) {
-    const [selectedEvent, setSelectedEvent] = useState(null);
-    const [ selectedDay,setSelectedDay ] = useContext(GlobalContext);
-    useEffect(() => {
-        const handleOutsideClick = (e) => {
-            if (e.target.classList.contains('modal')) {
-                closeModal();
-            }
-        };
+export default function EventModal({ selectedAction, selectedDay }) {
+  const [selectedEvent, setSelectedEvent] = useState(null);
+  const { showEventModal, setShowEventModal } = useContext(GlobalContext);
 
-        window.addEventListener('click', handleOutsideClick);
+  const displayDate = selectedDay ? selectedDay : dayjs();
 
-        return () => {
-            window.removeEventListener('click', handleOutsideClick);
-            };
-    }, [closeModal]);
+  useEffect(() => {
+    if (!showEventModal) {
+      setSelectedEvent(null); // Reset selectedEvent when modal is closed
+    }
+  }, [showEventModal]);
 
-    return (
-        <div className='modal'>
+  const handleCloseModal = () => {
+    setShowEventModal(false);
+  };
+
+  return (
+    <div className="modalWrapper" onClick={handleCloseModal}>
+      <div className='modal'>
         <header>
-            <AiOutlineClose onClick={closeModal} />
+          <AiOutlineClose onClick={handleCloseModal} />
         </header>
         <div className='modalBody'>
-            {selectedAction === 'event' && <EventForm />}
-            {selectedAction === 'assignment' && <AssignmentForm />}
-            <div>
-            <BiTime/>
-            <p>{selectedDay.format("dddd, MMMM YYYY")}</p>
-            </div>
+          {selectedAction === 'event' && <EventForm />}
+          {selectedAction === 'assignment' && <AssignmentForm />}
+          <div className='selectedDate'>
+            <BiTime />
+            <p>{displayDate.format('dddd D, MMMM YYYY')}</p>
+          </div>
         </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 }
