@@ -20,13 +20,13 @@ export default function CalendarHeader() {
 
   return (
     <header className="calendarHeader">
-      <button className="sideBarBtn"><BiMenu/></button>
+      <button title="show/hide sidebar" className="sideBarBtn"><BiMenu/></button>
       <img src={Logo} alt="calendar"/>
       <h1>Calendar</h1>
-      <button onClick={handleReset} className="todayBtn">Today</button>
+      <button title="reset month" onClick={handleReset} className="todayBtn">Today</button>
       <div className="prevNextBrnGroup">
-      <button onClick={handlePrevMonth}><BiSolidChevronLeft/></button>
-      <button onClick={handleNextMonth}><BiSolidChevronRight/></button>
+      <button title="prev month" onClick={handlePrevMonth}><BiSolidChevronLeft/></button>
+      <button title="next month" onClick={handleNextMonth}><BiSolidChevronRight/></button>
       </div>
       <h1>{dayjs(new Date(dayjs().year(), monthIndex)).format("MMMM YYYY")}</h1>
       {/* dropdown na rozdělení den, týden, měsíc */}

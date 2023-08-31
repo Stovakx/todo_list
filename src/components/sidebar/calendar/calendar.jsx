@@ -41,8 +41,8 @@ export default function Calendar() {
         <header>
             <p>{dayjs(new Date(dayjs().year(), currentMonthIdx)).format("MMMM YYYY")}</p>
             <div>
-                <button onClick={handlePrevMonth}><BiSolidChevronLeft/></button>
-                <button onClick={handleNextMonth}><BiSolidChevronRight/></button>
+                <button title='prev month' onClick={handlePrevMonth}><BiSolidChevronLeft/></button>
+                <button title='next month' onClick={handleNextMonth}><BiSolidChevronRight/></button>
             </div>
         </header>
         <div className='miniCalendar'>

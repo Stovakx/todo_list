@@ -8,22 +8,29 @@ import './index.css'
 
 function App() {
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const {monthIndex} = useContext(GlobalContext)
-  useEffect(()=>{
-    setCurrentMonth(getMonth(monthIndex))
-  },[monthIndex])
+  const { monthIndex, isEventModalOpen, closeEventModal } = useContext(GlobalContext);
 
-  return(
+  useEffect(() => {
+    setCurrentMonth(getMonth(monthIndex));
+  }, [monthIndex]);
+
+  const handleWrapperClick = () => {
+    if (isEventModalOpen) {
+      closeEventModal();
+    }
+  };
+
+  return (
     <React.Fragment>
-      <div className='wrapper'>
+      <div className='wrapper' onClick={handleWrapperClick}>
         <CalendarHeader />
         <div className='calendar_wrapper'>
-          <Sidebar/>
-          <Month month ={currentMonth}/>
+          <Sidebar />
+          <Month month={currentMonth} />
         </div>
       </div>
     </React.Fragment>
-  )
+  );
 }
 
 export default App
