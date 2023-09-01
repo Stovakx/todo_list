@@ -1,4 +1,5 @@
 import { useState, useContext, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiTime } from 'react-icons/bi';
 import EventForm from './event';
@@ -7,25 +8,33 @@ import './eventModal.css';
 import dayjs from 'dayjs';
 import GlobalContext from '../../context/globalContext';
 
-export default function EventModal({ selectedAction, selectedDay }) {
-  const [selectedEvent, setSelectedEvent] = useState(null);
+
+
+export default function EventModal({ selectedAction, selectedDay, closeModal }) {
+  const [, setSelectedEvent] = useState(null);
   const { showEventModal, setShowEventModal } = useContext(GlobalContext);
 
   const displayDate = selectedDay ? selectedDay : dayjs();
 
   useEffect(() => {
     if (!showEventModal) {
-      setSelectedEvent(null); // Reset selectedEvent when modal is closed
+      setSelectedEvent(null);
     }
   }, [showEventModal]);
 
+  //close modal funkce
   const handleCloseModal = () => {
-    setShowEventModal(false);
+    closeModal(setShowEventModal);
+  };
+
+  // Zabránění zavření modalu při kliknutí na .modal
+  const handleModalClick = (e) => {
+    e.stopPropagation(); 
   };
 
   return (
     <div className="modalWrapper" onClick={handleCloseModal}>
-      <div className='modal'>
+      <div className='modal' onClick={handleModalClick}>
         <header>
           <AiOutlineClose onClick={handleCloseModal} />
         </header>
@@ -41,3 +50,9 @@ export default function EventModal({ selectedAction, selectedDay }) {
     </div>
   );
 }
+
+EventModal.propTypes = {
+  selectedAction: PropTypes.string,
+  selectedDay: PropTypes.any,
+  closeModal: PropTypes.func,
+};

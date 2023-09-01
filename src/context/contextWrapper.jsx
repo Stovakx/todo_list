@@ -6,7 +6,7 @@ export default function ContextWapper(props) {
   const [monthIndex, setMonthIndex] = useState(dayjs().month());
   const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
-  const [showEventModal, setShowEventModal] = useState(false);
+  const [showEventModal, setShowEventModal] = useState(null);
 
   useEffect(() => {
     if (smallCalendarMonth !== null) {
