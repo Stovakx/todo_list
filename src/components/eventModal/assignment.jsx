@@ -1,36 +1,65 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect, useContext } from 'react'
 import {BiTimeFive, BiLocationPlus, BiCheck} from 'react-icons/bi'
 import {MdSegment} from 'react-icons/md'
 import { loadColors } from '../../utils/loaders';
+import GlobalContext from '../../context/globalContext';
 
 export default function AssignmentForm() {
-    const [assignmentName, setAssignmentName] = useState('');
-    const [assignmentDateStart, setAssignmentDateStart] = useState('');
-    const [assignmentTimeStart, setAssignmentTimeStart] = useState('');
-    const [description, setDescription] = useState('');
-    const [colorElements, setColorElements] = useState([]);
+  const [assignmentName, setAssignmentName] = useState('');
+  const [assignmentTimeStart, setAssignmentTimeStart] = useState('');
+  const [description, setDescription] = useState('');
+  const [colorElements, setColorElements] = useState([]);
+  const [selectedLabel, setSelectedLabel] = useState();
+  const { dispatchCallEvent, setShowEventModal, selectedDate } = useContext(GlobalContext);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
   
-    useEffect(() => {
-      async function fetchColors() {
-        const colors = await loadColors();
-        const colorKeys = Object.keys(colors);
+    if (selectedDate) {
+      const calendarEvent = {
+        assignmentName,
+        description,
+        label: selectedLabel,
+        day: selectedDate.valueOf(),
+        assignmentTimeStart,
+        colorElements,
+        id: Date.now(),
+      };
   
-        // Vytvořit pole span elementů pro každou barvu
-        const colorSpans = colorKeys.map((colorName) => (
-          <span
-            key={colorName}
-            style={{ backgroundColor: colors[colorName] }}
-            className="colorSpan"
-          ><BiCheck/></span>
-        ));
-  
-        setColorElements(colorSpans);
-      }
-  
-      fetchColors();
-    }, []);
-  
-    return (
+      dispatchCallEvent({ type: 'push', payload: calendarEvent });
+      setShowEventModal(false);
+    } else {
+      console.error('selectedDate není definována nebo nemá hodnotu.');
+    }
+  };  
+
+  useEffect(() => {
+    async function fetchColors() {
+      const colors = await loadColors();
+      const colorKeys = Object.keys(colors);
+
+      // Vytvořit pole span elementů pro každou barvu
+      const colorSpans = colorKeys.map((colorName, i) => (
+        <span
+          key={i}
+          onClick={()=> setSelectedLabel(colorName)}
+          style={{ backgroundColor: colors[colorName] }}
+          className="colorSpan"
+        >
+          {selectedLabel === colorName &&(
+            <BiCheck/>
+          )}
+        </span>
+      ));
+
+      setColorElements(colorSpans);
+    }
+
+    fetchColors();
+  }, [selectedLabel]);
+
+  return (
+    <form>
       <div className="assignmentBody">
         <div className="title">
           <input
@@ -44,28 +73,16 @@ export default function AssignmentForm() {
         </div>
         <div className="dateDiv">
           <BiTimeFive />
-          <div>
+          <div className="assignmentTimeDiv">
             <input
-              type="date"
-              name="assignmentStartDate"
-              value={assignmentDateStart}
+              type="time"
+              name="assignmentTimeStart"
+              value={assignmentTimeStart}
               required
-              onChange={(e) => setAssignmentDateStart(e.target.value)}
+              onChange={(e) => setAssignmentTimeStart(e.target.value)}
             />
-            <div className="assignmentTimeDiv">
-              <input
-                type="time"
-                name="assignmentTimeStart"
-                value={assignmentTimeStart}
-                required
-                onChange={(e) => setAssignmentTimeStart(e.target.value)}
-              />
-            </div>
           </div>
-        </div>
-        <div className="location">
-          <BiLocationPlus />
-          <input type="text" />
+
         </div>
         <div className="description">
           <MdSegment />
@@ -81,6 +98,15 @@ export default function AssignmentForm() {
         <div className="colors">
           {colorElements}
         </div>
+        <footer>
+          <button 
+            type='submit'
+            onClick={handleSubmit}
+          >
+            Save
+          </button>
+        </footer>
       </div>
-    );
-  }
+    </form>
+  );
+}
