@@ -1,5 +1,5 @@
 import {useState, useEffect, useContext } from 'react'
-import {BiTimeFive, BiLocationPlus, BiCheck} from 'react-icons/bi'
+import {BiTimeFive, BiCheck} from 'react-icons/bi'
 import {MdSegment} from 'react-icons/md'
 import { loadColors } from '../../utils/loaders';
 import GlobalContext from '../../context/globalContext';
@@ -10,26 +10,25 @@ export default function AssignmentForm() {
   const [description, setDescription] = useState('');
   const [colorElements, setColorElements] = useState([]);
   const [selectedLabel, setSelectedLabel] = useState();
-  const { dispatchCallEvent, setShowEventModal, selectedDate } = useContext(GlobalContext);
+  const { dispatchCallEvent, setShowEventModal, selectedDay } = useContext(GlobalContext);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async () => {
   
-    if (selectedDate) {
+    if (selectedDay) {
       const calendarEvent = {
         assignmentName,
         description,
         label: selectedLabel,
-        day: selectedDate.valueOf(),
+        day: selectedDay.valueOf(),
         assignmentTimeStart,
         colorElements,
         id: Date.now(),
       };
   
-      dispatchCallEvent({ type: 'push', payload: calendarEvent });
+      dispatchCallEvent({ type: 'create', payload: calendarEvent });
       setShowEventModal(false);
     } else {
-      console.error('selectedDate není definována nebo nemá hodnotu.');
+      console.error('selectedDay není definována nebo nemá hodnotu.');
     }
   };  
 
@@ -59,7 +58,7 @@ export default function AssignmentForm() {
   }, [selectedLabel]);
 
   return (
-    <form>
+    <form >
       <div className="assignmentBody">
         <div className="title">
           <input

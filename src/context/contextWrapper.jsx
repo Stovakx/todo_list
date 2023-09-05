@@ -2,20 +2,21 @@ import { useEffect, useReducer, useState } from 'react';
 import GlobalContext from './globalContext';
 import dayjs from 'dayjs';
 
-const savedEventsReducer = (state, [type, payload])=>{
-  switch(type){
+const savedEventsReducer = (state, action) => {
+  const { type, payload } = action;
+  switch (type) {
     case "create":
-      return[...state, payload];
+      return [...state, payload];
     case "update":
-      return state.map(evt => evt.id === payload.id ? payload : evt);
+      return state.map((evt) => (evt.id === payload.id ? payload : evt));
     case "delete":
       return state.filter((evt) => evt.id !== payload.id);
-    
+    case "push": // Add this case to handle pushing new events
+      return [...state, payload];
     default:
       throw new Error();
-
   }
-}
+};
 
 const initEvents = ()=>{
   const storageEvents = localStorage.getItem('savedEvents');
