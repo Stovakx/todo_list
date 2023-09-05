@@ -8,8 +8,7 @@ export default function EventForm() {
     const [formData, updateField]= useEventForm();
     const selectedDay = useContext(GlobalContext)
 
-    const handleSubmit = (e) =>{
-        e.preventDefault();
+    const handleSubmit = () =>{
 
         const { eventName, eventDateStart, eventDateEnd, eventTimeStart, location } = formData;
         // uložení dat do local storage
