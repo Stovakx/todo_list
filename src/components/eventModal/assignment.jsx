@@ -58,7 +58,7 @@ export default function AssignmentForm() {
   }, [selectedLabel]);
 
   return (
-    <form >
+    <form onSubmit={handleSubmit}>
       <div className="assignmentBody">
         <div className="title">
           <input
@@ -100,7 +100,6 @@ export default function AssignmentForm() {
         <footer>
           <button 
             type='submit'
-            onClick={handleSubmit}
           >
             Save
           </button>

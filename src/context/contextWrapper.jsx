@@ -2,7 +2,7 @@ import { useEffect, useReducer, useState } from 'react';
 import GlobalContext from './globalContext';
 import dayjs from 'dayjs';
 
-const savedEventsReducer = (state, action) => {
+const savedAssignmentsReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
     case "create":
@@ -18,10 +18,20 @@ const savedEventsReducer = (state, action) => {
   }
 };
 
-const initEvents = ()=>{
-  const storageEvents = localStorage.getItem('savedEvents');
-  const parsedEvents = storageEvents ? JSON.parse(storageEvents) : [];
-  return parsedEvents
+const initEvents = () => {
+  const storageEvents = localStorage.getItem('savedAssignments');
+  
+  if (storageEvents) {
+    try {
+      const parsedEvents = JSON.parse(storageEvents);
+      return parsedEvents;
+    } catch (error) {
+      console.error('Error parsing savedAssignments from localStorage:', error);
+    }
+  }
+  
+  // If data is missing or invalid, return an empty array
+  return [];
 }
 
 export default function ContextWapper(props) {
@@ -29,11 +39,13 @@ export default function ContextWapper(props) {
   const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const [showEventModal, setShowEventModal] = useState(null);
-  const [savedEvents, dispatchCallEvent] = useReducer(savedEventsReducer, [], initEvents);
+  const [savedAssignments, dispatchCallEvent] = useReducer(savedAssignmentsReducer, initEvents());
 
-  useEffect(()=>{
-    localStorage.setItem('savedEvents', JSON.stringify(savedEvents));
-  }, [savedEvents])
+  useEffect(() => {
+    localStorage.setItem('savedAssignments', JSON.stringify(savedAssignments));
+    console.log(savedAssignments)
+  }, [savedAssignments])
+
 
   useEffect(() => {
     if (smallCalendarMonth !== null) {
@@ -59,5 +71,3 @@ export default function ContextWapper(props) {
     </GlobalContext.Provider>
   );
 }
-
-

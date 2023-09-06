@@ -30,7 +30,6 @@ export default function CreateEventBtn() {
       </button>
       {isDropdownOpen && (
         <div className='dropdownContent'>
-          <button title='event create' onClick={() => handleActionClick('event')}>event</button>
           <button title='assignment create' onClick={() => handleActionClick('assignment')}>assignment</button>
         </div>
       )}

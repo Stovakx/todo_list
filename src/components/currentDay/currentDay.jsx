@@ -1,13 +1,15 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import GlobalContext from '../../context/globalContext';
 import { getCurrentDayClass } from '../../utils/getDate';
 import EventModal from '../eventModal/eventModal';
 import './currentDay.css';
 import { openModal, closeModal } from '../../utils/modalUtil';
+import dayjs from 'dayjs';
 
 export default function Day({ day, rowIdx }) {
-  const { setSelectedDay, selectedDay,  } = useContext(GlobalContext);
+  const { setSelectedDay, selectedDay, savedAssignments } = useContext(GlobalContext);
   const [selectedAction, setSelectedAction] = useState(false);
+  const [dayAssignments, setDayAssignments] = useState([]);
 
   const handleActionClick = (action) => {
     openModal(action, day, () => setSelectedAction(action)); 
@@ -17,6 +19,13 @@ export default function Day({ day, rowIdx }) {
     closeModal(() => setSelectedAction(null)); 
   };
 
+  useEffect(() => {
+    const assignments = savedAssignments.filter((evt) =>
+    dayjs(evt.day).format('DD-MM-YY') === day.format('DD-MM-YY')
+  );
+  setDayAssignments(assignments);
+  }, [savedAssignments, day]);
+  
   return (
     <div className='dayDiv'>
       <header>
@@ -31,6 +40,11 @@ export default function Day({ day, rowIdx }) {
         setSelectedDay(day);
         handleActionClick('assignment');
       }}>
+      {dayAssignments.map((evt, idx) => (
+        <div className='assignmentInDay' key={idx}>
+          <p>{evt.assignmentName}</p>
+        </div>
+      ))}
       </div>
       {selectedAction && (
       <EventModal

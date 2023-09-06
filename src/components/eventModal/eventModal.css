@@ -43,7 +43,7 @@
 
 }
 
-.eventBody, .assignmentBody{
+.assignmentBody{
     margin: 10px auto 10px auto;
     gap: 15px;
     display: flex;

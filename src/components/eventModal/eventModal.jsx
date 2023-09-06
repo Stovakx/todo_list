@@ -2,7 +2,6 @@ import { useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { AiOutlineClose } from 'react-icons/ai';
 import { BiTime } from 'react-icons/bi';
-import EventForm from './event';
 import AssignmentForm from './assignment';
 import './eventModal.css';
 import dayjs from 'dayjs';
@@ -39,7 +38,6 @@ export default function EventModal({ selectedAction, selectedDay, closeModal }) 
           <AiOutlineClose onClick={handleCloseModal} />
         </header>
         <div className='modalBody'>
-          {selectedAction === 'event' && <EventForm />}
           {selectedAction === 'assignment' && <AssignmentForm />}
           <div className='selectedDate'>
             <BiTime />
