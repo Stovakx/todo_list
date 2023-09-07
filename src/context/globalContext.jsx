@@ -11,6 +11,9 @@ const GlobalContext = React.createContext({
   setShowEventModal:()=>{},
   dispatchCallEvent:({type, payload})=>{},
   savedAssignments: [],
+  selectedAssignment: null,
+  setSelectedAssignment: ()=>{},
 });
+
 
 export default GlobalContext;

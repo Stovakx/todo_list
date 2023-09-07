@@ -5,13 +5,11 @@ import dayjs from 'dayjs';
 const savedAssignmentsReducer = (state, action) => {
   const { type, payload } = action;
   switch (type) {
-    case "create":
-      return [...state, payload];
     case "update":
       return state.map((evt) => (evt.id === payload.id ? payload : evt));
     case "delete":
       return state.filter((evt) => evt.id !== payload.id);
-    case "push": // Add this case to handle pushing new events
+    case "push":
       return [...state, payload];
     default:
       throw new Error();
@@ -39,11 +37,11 @@ export default function ContextWapper(props) {
   const [smallCalendarMonth, setSmallCalendarMonth] = useState(null);
   const [selectedDay, setSelectedDay] = useState(null);
   const [showEventModal, setShowEventModal] = useState(null);
+  const [selectedAssignment, setSelectedAssignment]= useState(null)
   const [savedAssignments, dispatchCallEvent] = useReducer(savedAssignmentsReducer, initEvents());
 
   useEffect(() => {
     localStorage.setItem('savedAssignments', JSON.stringify(savedAssignments));
-    console.log(savedAssignments)
   }, [savedAssignments])
 
 
@@ -63,6 +61,9 @@ export default function ContextWapper(props) {
     showEventModal,
     setShowEventModal,
     dispatchCallEvent,
+    savedAssignments,
+    selectedAssignment,
+    setSelectedAssignment
   };
 
   return (

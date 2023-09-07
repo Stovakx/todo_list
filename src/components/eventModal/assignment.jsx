@@ -21,11 +21,10 @@ export default function AssignmentForm() {
         label: selectedLabel,
         day: selectedDay.valueOf(),
         assignmentTimeStart,
-        colorElements,
         id: Date.now(),
       };
   
-      dispatchCallEvent({ type: 'create', payload: calendarEvent });
+      dispatchCallEvent({ type: 'push', payload: calendarEvent });
       setShowEventModal(false);
     } else {
       console.error('selectedDay není definována nebo nemá hodnotu.');

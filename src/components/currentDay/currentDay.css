@@ -31,9 +31,21 @@
 }
 
 .dayEventsDiv{
+    display: flex;
+    flex-direction: column;
     cursor: pointer;
     height: 100%;
 }
+.dayEventsDiv>.assignmentInDay{
+    margin: 6px;
+    width: 80%;
+    align-content: center;
+    height: 20px;
+    opacity: 0.85;
+    padding-left: 7px;
+    border-radius: 500px;
+    text-overflow: ellipsis;
+} 
 
 .selectedDay{
     background-color:rgb(56 189 248) ;
