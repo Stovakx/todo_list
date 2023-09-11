@@ -5,15 +5,15 @@ import { loadColors } from '../../utils/loaders';
 import GlobalContext from '../../context/globalContext';
 
 export default function AssignmentForm() {
-  const [assignmentName, setAssignmentName] = useState('');
-  const [assignmentTimeStart, setAssignmentTimeStart] = useState('');
-  const [description, setDescription] = useState('');
+  const { dispatchCallEvent, setShowEventModal, selectedDay, selectedAssignment } = useContext(GlobalContext);
+  const [assignmentName, setAssignmentName] = useState(selectedAssignment ? selectedAssignment.assignmentName : "");
+  const [assignmentTimeStart, setAssignmentTimeStart] = useState(selectedAssignment ? selectedAssignment.assignmentTimeStart : '');
+  const [description, setDescription] = useState(selectedAssignment ? selectedAssignment.description : "");
   const [colorElements, setColorElements] = useState([]);
   const [selectedLabel, setSelectedLabel] = useState();
-  const { dispatchCallEvent, setShowEventModal, selectedDay } = useContext(GlobalContext);
+  
 
   const handleSubmit = async () => {
-  
     if (selectedDay) {
       const calendarEvent = {
         assignmentName,
@@ -24,13 +24,22 @@ export default function AssignmentForm() {
         id: Date.now(),
       };
   
-      dispatchCallEvent({ type: 'push', payload: calendarEvent });
-      setShowEventModal(false);
-    } else {
-      console.error('selectedDay není definována nebo nemá hodnotu.');
+      if (selectedAssignment) {
+        // Aktualizace existujícího úkolu
+        dispatchCallEvent({ type: 'update', payload: { ...calendarEvent, id: selectedAssignment.id } });
+      } else {
+        // Vytvoření nového úkolu
+        dispatchCallEvent({ type: 'push', payload: calendarEvent });
+      }
+  
+      setShowEventModal(null);
+    } else if (selectedAssignment) {
+      // Smazání existujícího úkolu
+      dispatchCallEvent({ type: 'delete', payload: selectedAssignment });
+      setShowEventModal(null);
     }
-  };  
-
+  };
+  
   useEffect(() => {
     async function fetchColors() {
       const colors = await loadColors();
@@ -80,11 +89,10 @@ export default function AssignmentForm() {
               onChange={(e) => setAssignmentTimeStart(e.target.value)}
             />
           </div>
-
         </div>
         <div className="description">
           <MdSegment />
-          <textarea
+          <input
             type="text"
             name="description"
             placeholder="Add a description"
@@ -97,6 +105,11 @@ export default function AssignmentForm() {
           {colorElements}
         </div>
         <footer>
+          {selectedAssignment && (
+            <button
+              onClick={()=>{
+                dispatchCallEvent({type: "delete", payload: selectedAssignment})              }}>Delete</button>
+          )}
           <button 
             type='submit'
           >

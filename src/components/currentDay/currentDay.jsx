@@ -20,7 +20,7 @@ export default function Day({ day, rowIdx }) {
   const handleCloseModal = () => {
     closeModal(() => setSelectedAction(null)); 
   };
-
+  
   //vyhledání a filtrace úkolu k dánemu dnu
   useEffect(() => {
     const assignments = savedAssignments.filter((evt) =>
@@ -40,8 +40,6 @@ export default function Day({ day, rowIdx }) {
   }, []);
 
   //todo
-  //otevření modalu při kliknutí na úkol a zobrazení detailů ohledně assignment
-
   //kliknutí na datum zobrazí den po hodinách, přiřazení úkolů podle času začátku(new component)
 
   //přesun z jednoho dne na druhý pomocí myši, změní se datum v assignment

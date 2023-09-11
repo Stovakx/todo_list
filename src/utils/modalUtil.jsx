@@ -6,5 +6,5 @@ export const openModal = (action, selectedDay, setShowEventModal) => {
 };  
   
 export const closeModal = (setShowEventModal) => {
-    setShowEventModal(null);
+  setShowEventModal(null);
 };

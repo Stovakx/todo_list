@@ -52,13 +52,20 @@
     align-items: center;
 }
 
-.dateDiv, .title,.location,.description{
+.dateDiv,.location,.description{
     width: 250px;
     display: flex;
+    justify-content: space-between;
 }
-
+.title{
+    width: 250px;
+    display: flex;
+    justify-content: end;
+}
+.description>input{
+    width: 193px;
+}
 .title input {
-    margin-left:35px;
     width: 190px;
 }
 
@@ -150,7 +157,9 @@
     display: flex;
     justify-content: end;
 }
-
+.modal footer button:first-of-type{
+    margin-right: 15px;
+}
 .modal button{
     border: none;
     color: white;
